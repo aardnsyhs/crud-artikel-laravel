@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <section class="bg-white dark:bg-gray-900 mt-12">
+    <section class="bg-white dark:bg-gray-900 mt-20">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                 <div class="max-w-4xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
