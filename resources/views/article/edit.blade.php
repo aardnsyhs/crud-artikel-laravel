@@ -8,6 +8,12 @@
     <title>Post Article</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        header {
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+    </style>
 </head>
 
 <body>
