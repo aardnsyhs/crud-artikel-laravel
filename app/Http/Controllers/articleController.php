@@ -97,8 +97,6 @@ class articleController extends Controller
         $article = Article::findOrFail($id);
 
         $article->delete();
-
-        return redirect()->route('article.index')->with('success', 'Article deleted successfully!');
     }
 
 }
