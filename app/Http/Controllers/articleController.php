@@ -87,12 +87,10 @@ class articleController extends Controller
 
     public function show($id) {
         $article = Article::join('users', 'articles.user_id', '=', 'users.id')
-    ->select('articles.*', 'users.name as author_name')
-    ->findOrFail($id);
+                            ->select('articles.*', 'users.name as author_name')
+                            ->findOrFail($id);
 
-        return view('article.show', [
-            'article' => $article
-        ]);
+        return view('article.show', ['article' => $article]);
     }
 
     public function destroy($id) {
