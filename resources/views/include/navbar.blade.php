@@ -13,7 +13,8 @@
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             @auth
-                <a class="text-sm font-semibold leading-6 mx-2 mt-0.5 text-gray-900">{{ Auth::user()->name }}</a>
+                <a href="{{ route('profile.index') }}"
+                    class="text-sm font-semibold leading-6 mx-2 mt-0.5 text-gray-900">{{ Auth::user()->name }}</a>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button class="text-sm font-semibold leading-6 text-gray-900">Log Out <span>&rarr;</span></button>
