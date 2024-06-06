@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Show Article</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -42,12 +43,13 @@
                                         alt="Author" class="w-10 h-10 rounded-full mr-2">
                                     <span class="text-sm text-gray-700">{{ $article->author_name }}</span>
                                 </div>
-                                <div class="flex items-center space-x-4">
+                                <div id="article-{{ $article->id }}" class="flex items-center space-x-4">
                                     <span
                                         class="text-sm text-gray-500">{{ $article->created_at->diffForHumans() }}</span>
                                     @if ($article->user_id === auth()->id())
-                                        <a href="{{ route('article.destroy', ['id' => $article->id]) }}"
-                                            class="text-sm font-semibold text-red-600 hover:text-red-800">Delete</a>
+                                        <button class="text-sm font-semibold text-red-600 hover:text-red-800"
+                                            onclick="deleteArticle({{ $article->id }})">Delete</button>
+                                        {{-- @dd($article->id) --}}
                                     @endif
                                 </div>
                             </div>
@@ -57,6 +59,41 @@
             </div>
         </div>
     </section>
+    <script>
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        function deleteArticle(id) {
+            Swal.fire({
+                title: "Do you want to delete this article?",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var url = `{{ route('article.destroy', ':id') }}`;
+                    url = url.replace(':id', id);
+
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            Swal.fire("Deleted!", "", "success");
+                            document.getElementById(`article-${id}`).remove();
+                            window.location.href = "{{ route('article.index') }}";
+                        } else {
+                            Swal.fire("Error!", "Failed to delete the article.", "error");
+                        }
+                    }).catch(error => {
+                        Swal.fire("Error!", "Failed to delete the article.", "error");
+                    });
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>

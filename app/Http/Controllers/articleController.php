@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use illuminate\Support\Str;
 
 class articleController extends Controller
 {
@@ -14,6 +15,9 @@ class articleController extends Controller
                             ->join('users', 'articles.user_id', '=', 'users.id')
                             ->select('articles.*', 'categories.category_name', 'users.name as author_name')
                             ->get();
+        foreach ($articles as $article) {
+            $article->description = Str::limit($article->description, 100);
+        }
         return view('article.index', ['articles' => $articles]);
     }
 
@@ -24,7 +28,7 @@ class articleController extends Controller
             'authorName' => $user->name,
             'categories' => $categories,
         ]);
-    }   
+    }
 
     public function store(Request $request)
     {
@@ -48,14 +52,14 @@ class articleController extends Controller
 
     public function edit($id) {
         $article = Article::findOrFail($id);
-    
+
         $categories = Category::all();
-    
+
         $articleCategory = Category::join('articles', 'categories.id', '=', 'articles.category_id')
                                     ->where('articles.id', $id)
                                     ->select('categories.*')
                                     ->first();
-    
+
         return view('article.edit', [
             'article' => $article,
             'articleCategory' => $articleCategory,
@@ -98,5 +102,5 @@ class articleController extends Controller
 
         return redirect()->route('article.index')->with('success', 'Article deleted successfully!');
     }
-    
+
 }
