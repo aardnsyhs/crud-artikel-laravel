@@ -45,4 +45,4 @@ Route::get('/article/show/{id}', [ArticleController::class, 'show'])->middleware
 Route::get('/article/destroy/{id}', [ArticleController::class, 'destroy'])->middleware('auth')->name('article.destroy');
 
 // Profile routes
-Route::get('/profile/{id}', [ProfileController::class, 'index'])->middleware('auth')->name('profile.index');
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth')->name('profile.index');

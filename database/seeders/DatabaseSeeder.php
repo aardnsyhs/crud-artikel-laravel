@@ -33,6 +33,6 @@ class DatabaseSeeder extends Seeder
         Category::create([
             'category_name' => 'Budaya'
         ]);
-        // User::factory(30)->create();
+        User::factory(30)->create();
     }
 }
