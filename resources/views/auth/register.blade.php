@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowbite Astro Admin Dashboard — v1.0.2</title>
+    <title>Register Page</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script>
