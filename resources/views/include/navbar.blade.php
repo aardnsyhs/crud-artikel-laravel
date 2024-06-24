@@ -13,7 +13,7 @@
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             @auth
-                <a href="{{ route('profile.index') }}"
+                <a href="{{ route('profile.index') }}" target="_blank"
                     class="text-sm font-semibold leading-6 mx-2 mt-0.5 text-gray-900">{{ Auth::user()->name }}</a>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
